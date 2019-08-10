@@ -1,6 +1,7 @@
 #include "vendingmachine.h"
 #include <iostream>
 #include <algorithm>
+#include <utility>
 
 VendingMachine::VendingMachine()
 {
@@ -9,8 +10,11 @@ VendingMachine::VendingMachine()
 
 void VendingMachine::initializeProduct()
 {
-	products.number = 1;
-	products.product["nacchan"] = std::make_pair("NA-CCHAN!", 130);
+    VendingMachine::Product p;
+    p.number = 1;
+    p.name = "Nacchan!";
+    p.price = 130;
+	products.push_back(p);
 }
 
 void VendingMachine::run()
@@ -18,26 +22,22 @@ void VendingMachine::run()
 	showProduct();
 	int charge = waitCharge();
 	int choose = waitChoose();
-	Product *product = check(charge, choose);
-	giveProduct(product);
+	Product *p = chooseProduct(choose);
+    bool okng = calcMoney(p->price, charge);
+	if(okng == true){
+        giveProduct(p);
+    }
 }
 
 void VendingMachine::showProduct()
 {
-	// 商品番号
-	std::cout << products.number;
-	std::cout << " ";
-	for(auto itr = products.product.begin(); itr != products.product.end(); ++itr){
-		#ifdef _DEBUG
-		// キー
-		std::cout << itr->first << std::endl;
-		#endif
-		// 商品名
-		std::cout << itr->second.first;
-		std::cout << " ";
-		// 価格
-		std::cout << itr->second.second;
-		std::cout << "円" << std::endl;
+    for(int i = 0; i < products.size(); i++){
+	    std::cout << products[i].number;
+	    std::cout << " ";
+	    std::cout << products[i].name;
+	    std::cout << " ";
+	    std::cout << products[i].price;
+	    std::cout << "円" << std::endl;
 	}
 }
 
@@ -57,15 +57,41 @@ int VendingMachine::waitChoose()
 	return choose;
 }
 
-VendingMachine::Product *VendingMachine::check(const int charge, const int choose)
+VendingMachine::Product *VendingMachine::chooseProduct(const int choose)
 {
-	//chargeとchooseでお金の確認やおつり、商品選択など
-	return &products;
+    int i;
+
+    for(i = 0; i < products.size(); i++){
+        if(products[i].number == choose){
+            break;
+        }
+    }
+
+	return &products[i];
+}
+
+bool VendingMachine::calcMoney(const int price, const int charge)
+{
+    int change = charge - price;
+
+    if(change > 0){
+        std::cout << "おつりは ";
+	    std::cout << change;
+	    std::cout << " 円です" << std::endl;
+        return true;
+    }
+    else if(change == 0){
+        return true;
+    }
+    else{
+        std::cout << "料金がたりません" << std::endl;
+        return false;
+    }
 }
 
 void VendingMachine::giveProduct(VendingMachine::Product *p)
 {
-	std::cout << p->product["nacchan"].first;  // 表品名を表示
+	std::cout << p->name;
 	std::cout << " をお買い上げありがとうございます" << std::endl;
 	std::cout << "・・・・・ゴトッ" << std::endl;
 }

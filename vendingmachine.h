@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include <unordered_map>
+#include <vector>
 
 class VendingMachine
 {
@@ -11,18 +11,18 @@ public:
 private:
 	typedef struct
 	{
-		// 商品番号
 		int number;
-		// キー, 商品名, 価格
-		std::unordered_map<std::string, std::pair<std::string, int>> product;
+		std::string name;
+        int price;
 	}Product;
 
-	Product products;
+	std::vector<Product> products;
 
 	void initializeProduct();
 	void showProduct();
 	int waitCharge();
    	int waitChoose();
-	Product *check(const int charge, const int choose);
+	Product *chooseProduct(const int choose);
+    bool calcMoney(const int price, const int charge);
 	void giveProduct(Product *p);
 };
