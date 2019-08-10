@@ -57,7 +57,7 @@ int VendingMachine::waitChoose()
     return choose;
 }
 
-VendingMachine::Products * VendingMachine::check(const int charge, const int choose)
+VendingMachine::Products *VendingMachine::check(const int charge, const int choose)
 {
     //chargeとchooseでお金の確認やおつり、商品選択など
     return &products;
