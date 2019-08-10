@@ -9,15 +9,13 @@ public:
 	void run();
 
 private:
-	typedef struct
-	{
+	typedef struct{
 		int id;
 		std::string name;
 		int price;
 	}Product;
 
-	typedef struct
-	{
+	typedef struct{
 		Product product;
 		int num;
 	}ProductNum;
