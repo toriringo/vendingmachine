@@ -9,7 +9,7 @@ VendingMachine::VendingMachine()
 
 void VendingMachine::initializeProduct()
 {
-    products.number = 1;
+	products.number = 1;
 	products.product["nacchan"] = std::make_pair("NA-CCHAN!", 130);
 }
 
@@ -17,55 +17,55 @@ void VendingMachine::run()
 {
 	showProduct();
 	int charge = waitCharge();
-    int choose = waitChoose();
-    Product *product = check(charge, choose);
-    giveProduct(product);
+	int choose = waitChoose();
+	Product *product = check(charge, choose);
+	giveProduct(product);
 }
 
 void VendingMachine::showProduct()
 {
-    // 商品番号
-    std::cout << products.number;
-    std::cout << " ";
-    for(auto itr = products.product.begin(); itr != products.product.end(); ++itr){
-        #ifdef _DEBUG
-        // キー
-        std::cout << itr->first << std::endl;
-        #endif
-        // 商品名
-        std::cout << itr->second.first;
-        std::cout << " ";
-        // 価格
-        std::cout << itr->second.second;
-        std::cout << "円" << std::endl;
-    }
+	// 商品番号
+	std::cout << products.number;
+	std::cout << " ";
+	for(auto itr = products.product.begin(); itr != products.product.end(); ++itr){
+		#ifdef _DEBUG
+		// キー
+		std::cout << itr->first << std::endl;
+		#endif
+		// 商品名
+		std::cout << itr->second.first;
+		std::cout << " ";
+		// 価格
+		std::cout << itr->second.second;
+		std::cout << "円" << std::endl;
+	}
 }
 
 int VendingMachine::waitCharge()
 {
-    int charge;
-    std::cout << "お金をいれてください" << std::endl;
+	int charge;
+	std::cout << "お金をいれてください" << std::endl;
 	std::cin >> charge;
-    return charge;
+	return charge;
 }
 
 int VendingMachine::waitChoose()
 {
-    int choose;
-    std::cout << "商品をえらんでください" << std::endl;
+	int choose;
+	std::cout << "商品をえらんでください" << std::endl;
 	std::cin >> choose;
-    return choose;
+	return choose;
 }
 
 VendingMachine::Product *VendingMachine::check(const int charge, const int choose)
 {
-    //chargeとchooseでお金の確認やおつり、商品選択など
-    return &products;
+	//chargeとchooseでお金の確認やおつり、商品選択など
+	return &products;
 }
 
 void VendingMachine::giveProduct(VendingMachine::Product *p)
 {
-    std::cout << p->product["nacchan"].first;  // 表品名を表示
-    std::cout << " をお買い上げありがとうございます" << std::endl;
-    std::cout << "・・・・・ゴトッ" << std::endl;
+	std::cout << p->product["nacchan"].first;  // 表品名を表示
+	std::cout << " をお買い上げありがとうございます" << std::endl;
+	std::cout << "・・・・・ゴトッ" << std::endl;
 }
