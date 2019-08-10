@@ -10,19 +10,25 @@ public:
 
 private:
 	typedef struct
-	{
-		int number;
+    {
+		int id;
 		std::string name;
         int price;
 	}Product;
 
-	std::vector<Product> products;
+    typedef struct
+    {
+        Product product;
+        int num;
+    }ProductNum;
 
-	void initializeProduct();
-	void showProduct();
+	std::vector<ProductNum> products;
+
+	void initializeProducts();
+	void showProducts();
 	int waitCharge();
    	int waitChoose();
-	Product *chooseProduct(const int choose);
+	ProductNum *chooseProduct(const int choose);
     bool calcMoney(const int price, const int charge);
-	void giveProduct(Product *p);
+	void giveProduct(ProductNum *p);
 };

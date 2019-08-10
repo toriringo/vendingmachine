@@ -5,69 +5,78 @@
 
 VendingMachine::VendingMachine()
 {
-	initializeProduct();
+	initializeProducts();
 }
 
-void VendingMachine::initializeProduct()
+void VendingMachine::initializeProducts()
 {
-    VendingMachine::Product p;
-    p.number = 1;
-    p.name = "Nacchan!";
-    p.price = 130;
-	products.push_back(p);
+    VendingMachine::ProductNum productnum;
+    productnum.product.id = 1;
+    productnum.product.name = "Nacchan!";
+    productnum.product.price = 130;
+    productnum.num = 20;
+
+	products.push_back(productnum);
 }
 
 void VendingMachine::run()
 {
-	showProduct();
-	int charge = waitCharge();
+	showProducts();
 	int choose = waitChoose();
-	Product *p = chooseProduct(choose);
-    bool okng = calcMoney(p->price, charge);
+    int charge = waitCharge();
+	ProductNum *p = chooseProduct(choose);
+    bool okng = calcMoney(p->product.price, charge);
 	if(okng == true){
         giveProduct(p);
     }
 }
 
-void VendingMachine::showProduct()
+void VendingMachine::showProducts()
 {
     for(int i = 0; i < products.size(); i++){
-	    std::cout << products[i].number;
+	    std::cout << products[i].product.id;
 	    std::cout << " ";
-	    std::cout << products[i].name;
+	    std::cout << products[i].product.name;
 	    std::cout << " ";
-	    std::cout << products[i].price;
+	    std::cout << products[i].product.price;
 	    std::cout << "円" << std::endl;
+        #ifdef _DEBUG
+	    std::cout << products[i].num << std::endl;
+        #endif
 	}
-}
-
-int VendingMachine::waitCharge()
-{
-	int charge;
-	std::cout << "お金をいれてください" << std::endl;
-	std::cin >> charge;
-	return charge;
 }
 
 int VendingMachine::waitChoose()
 {
 	int choose;
-	std::cout << "商品をえらんでください" << std::endl;
-	std::cin >> choose;
+
+    do{
+	    std::cout << "商品をえらんでください ";
+	    std::cin >> choose;
+    }while(choose > products.size() || choose < 1);
+
 	return choose;
 }
 
-VendingMachine::Product *VendingMachine::chooseProduct(const int choose)
+int VendingMachine::waitCharge()
+{
+	int charge;
+	std::cout << "お金をいれてください ";
+	std::cin >> charge;
+	return charge;
+}
+
+VendingMachine::ProductNum *VendingMachine::chooseProduct(const int choose)
 {
     int i;
 
     for(i = 0; i < products.size(); i++){
-        if(products[i].number == choose){
+        if(products[i].product.id == choose){
             break;
         }
     }
 
-	return &products[i];
+	return &(products[i]);
 }
 
 bool VendingMachine::calcMoney(const int price, const int charge)
@@ -89,9 +98,10 @@ bool VendingMachine::calcMoney(const int price, const int charge)
     }
 }
 
-void VendingMachine::giveProduct(VendingMachine::Product *p)
+void VendingMachine::giveProduct(VendingMachine::ProductNum *p)
 {
-	std::cout << p->name;
+	std::cout << p->product.name;
 	std::cout << " をお買い上げありがとうございます" << std::endl;
+    p->num -= 1;
 	std::cout << "・・・・・ゴトッ" << std::endl;
 }

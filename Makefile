@@ -1,7 +1,7 @@
 CC		= g++
 CCFLAGS	= -std=c++17
 CFLAGS	+= -D_DEBUG
-CFLAGS  += -g
+#CFLAGS  += -g
 
 TARGET	= vendingmachine
 OBJS	= main.o vendingmachine.o
