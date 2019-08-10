@@ -24,10 +24,10 @@ void VendingMachine::run()
 	showProducts();
 	int choose = waitChoose();
 	int charge = waitCharge();
-	ProductNum *p = chooseProduct(choose);
-	bool okng = calcMoney(p->product.price, charge);
-	if(okng == true){
-		giveProduct(p);
+	ProductNum *productnum = chooseProduct(choose);
+	bool chargeFlag = calcMoney(productnum->product.price, charge);
+	if(chargeFlag == true){
+		giveProduct(productnum);
 	}
 }
 
