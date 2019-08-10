@@ -76,7 +76,7 @@ VendingMachine::ProductNum *VendingMachine::chooseProduct(const int choose)
 		}
 	}
 
-	return &(products[i]);
+	return &(m_products[i]);
 }
 
 bool VendingMachine::calcMoney(const int price, const int charge)
