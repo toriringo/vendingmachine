@@ -16,7 +16,7 @@ void VendingMachine::initializeProducts()
 	productnum.product.price = 130;
 	productnum.num = 20;
 
-	products.push_back(productnum);
+	m_products.push_back(productnum);
 }
 
 void VendingMachine::run()
@@ -33,15 +33,15 @@ void VendingMachine::run()
 
 void VendingMachine::showProducts()
 {
-	for(int i = 0; i < products.size(); i++){
-		std::cout << products[i].product.id;
+	for(int i = 0; i < m_products.size(); i++){
+		std::cout << m_products[i].product.id;
 		std::cout << " ";
-		std::cout << products[i].product.name;
+		std::cout << m_products[i].product.name;
 		std::cout << " ";
-		std::cout << products[i].product.price;
+		std::cout << m_products[i].product.price;
 		std::cout << "円" << std::endl;
 		#ifdef _DEBUG
-		std::cout << products[i].num << std::endl;
+		std::cout << m_products[i].num << std::endl;
 		#endif
 	}
 }
@@ -53,7 +53,7 @@ int VendingMachine::waitChoose()
 	do{
 		std::cout << "商品をえらんでください ";
 		std::cin >> choose;
-	}while(choose > products.size() || choose < 1);
+	}while(choose > m_products.size() || choose < 1);
 
 	return choose;
 }
@@ -70,8 +70,8 @@ VendingMachine::ProductNum *VendingMachine::chooseProduct(const int choose)
 {
 	int i;
 
-	for(i = 0; i < products.size(); i++){
-		if(products[i].product.id == choose){
+	for(i = 0; i < m_products.size(); i++){
+		if(m_products[i].product.id == choose){
 			break;
 		}
 	}
