@@ -8,20 +8,19 @@ public:
 	VendingMachine();
 	void run();
 private:
-    typedef struct Products
+    typedef struct
     {
         // 商品番号
         int number;
         // キー, 商品名, 価格
 	    std::unordered_map<std::string, std::pair<std::string, int>> product;
-    }Products;
-
-    Products products;
+    }Product;
+    Product products;
 
 	void initializeProduct();
 	void showProduct();
 	int waitCharge();
    	int waitChoose();
-    Products *check(const int charge, const int choose);
-    void giveProduct(Products *p);
+    Product *check(const int charge, const int choose);
+    void giveProduct(Product *p);
 };

@@ -18,7 +18,7 @@ void VendingMachine::run()
 	showProduct();
 	int charge = waitCharge();
     int choose = waitChoose();
-    Products *product = check(charge, choose);
+    Product *product = check(charge, choose);
     giveProduct(product);
 }
 
@@ -57,16 +57,15 @@ int VendingMachine::waitChoose()
     return choose;
 }
 
-VendingMachine::Products *VendingMachine::check(const int charge, const int choose)
+VendingMachine::Product *VendingMachine::check(const int charge, const int choose)
 {
     //chargeとchooseでお金の確認やおつり、商品選択など
     return &products;
 }
 
-void VendingMachine::giveProduct(VendingMachine::Products *p)
+void VendingMachine::giveProduct(VendingMachine::Product *p)
 {
-    // 商品名
-    std::cout << p->product["nacchan"].first;
-    std::cout << "をお買い上げありがとうございます" << std::endl;
+    std::cout << p->product["nacchan"].first;  // 表品名を表示
+    std::cout << " をお買い上げありがとうございます" << std::endl;
     std::cout << "・・・・・ゴトッ" << std::endl;
 }
