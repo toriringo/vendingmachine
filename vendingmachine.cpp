@@ -9,38 +9,64 @@ VendingMachine::VendingMachine()
 
 void VendingMachine::initializeProduct()
 {
-	products["Nacchan"] = std::make_pair("Nacchan", 130);
+    products.number = 1;
+	products.product["nacchan"] = std::make_pair("NA-CCHAN!", 130);
 }
 
 void VendingMachine::run()
 {
 	showProduct();
-	waitCharge();	
-	waitChoose();
+	int charge = waitCharge();
+    int choose = waitChoose();
+    Products *product = check(charge, choose);
+    giveProduct(product);
 }
 
 void VendingMachine::showProduct()
 {
-	std::unordered_map<std::string, std::pair<std::string, int>>::iterator ite = products.begin();
-/*
-	std::for_each(products.begin(),
-	              products.end(),
-	              [](std::unordered_map<std::string, std::pair<std::string, int>>) p){
-		cout << p.first << p.second << endl;
-*/
-/*
-	while(ite != products.end()){
-		std::cout << ite[""].first << ite[""].second << std::endl;
-	}
-*/
+    // 商品番号
+    std::cout << products.number;
+    std::cout << " ";
+    for(auto itr = products.product.begin(); itr != products.product.end(); ++itr){
+        #ifdef _DEBUG
+        // キー
+        std::cout << itr->first << std::endl;
+        #endif
+        // 商品名
+        std::cout << itr->second.first;
+        std::cout << " ";
+        // 価格
+        std::cout << itr->second.second;
+        std::cout << "円" << std::endl;
+    }
 }
 
-void VendingMachine::waitCharge()
+int VendingMachine::waitCharge()
 {
+    int charge;
+    std::cout << "お金をいれてください" << std::endl;
 	std::cin >> charge;
+    return charge;
 }
 
-void VendingMachine::waitChoose()
+int VendingMachine::waitChoose()
 {
+    int choose;
+    std::cout << "商品をえらんでください" << std::endl;
+	std::cin >> choose;
+    return choose;
 }
 
+VendingMachine::Products * VendingMachine::check(const int charge, const int choose)
+{
+    //chargeとchooseでお金の確認やおつり、商品選択など
+    return &products;
+}
+
+void VendingMachine::giveProduct(VendingMachine::Products *p)
+{
+    // 商品名
+    std::cout << p->product["nacchan"].first;
+    std::cout << "をお買い上げありがとうございます" << std::endl;
+    std::cout << "・・・・・ゴトッ" << std::endl;
+}
